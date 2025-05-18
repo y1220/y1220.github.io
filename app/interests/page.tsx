@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -262,59 +263,78 @@ export default function InterestsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {techStack.map((tech, index) => (
-            <Card key={index} className="border-emerald/30 overflow-hidden">
-              <div className="flex items-center gap-4 p-6 bg-pastel-yellow">
-                <div className="relative w-16 h-16 flex-shrink-0">
-                  <Image src={tech.logo || "/placeholder.svg"} alt={tech.name} fill className="object-contain" />
+            <div key={index} className="tech-card-container">
+              <Card className="border-emerald/30 overflow-hidden h-full flex flex-col">
+                <div className="flex items-center gap-4 p-6 bg-pastel-yellow">
+                  <div className="relative w-16 h-16 flex-shrink-0">
+                    <Image src={tech.logo || "/placeholder.svg"} alt={tech.name} fill className="object-contain" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl text-emerald">{tech.name}</CardTitle>
+                    <CardDescription className="text-gray-700 mt-1">{tech.description}</CardDescription>
+                  </div>
                 </div>
-                <div>
-                  <CardTitle className="text-xl text-emerald">{tech.name}</CardTitle>
-                  <CardDescription className="text-gray-700 mt-1">{tech.description}</CardDescription>
-                </div>
-              </div>
 
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="projects" className="border-t border-emerald/30">
-                  <AccordionTrigger className="px-6 py-3 text-emerald hover:text-emerald/80">
-                    Related Projects
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <div className="space-y-4">
-                      {tech.projects.map((project, idx) => (
-                        <div key={idx} className="border border-emerald/20 rounded-md p-4 bg-pastel-yellow/50">
-                          <h4 className="font-medium text-emerald">{project.name}</h4>
-                          <p className="text-sm text-gray-700 mt-1 mb-3">{project.description}</p>
-                          <Link
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center text-sm text-emerald hover:underline"
-                          >
-                            <Github className="h-4 w-4 mr-1" />
-                            View on GitHub
-                          </Link>
+                <div className="flex-grow">
+                  <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value={`tech-${index}`} className="border-t border-emerald/30">
+                      <AccordionTrigger className="px-6 py-3 text-emerald hover:text-emerald/80">
+                        Related Projects
+                      </AccordionTrigger>
+                      <AccordionContent className="px-6 pb-4">
+                        <div className="space-y-4">
+                          {tech.projects.map((project, idx) => (
+                            <div key={idx} className="border border-emerald/20 rounded-md p-4 bg-pastel-yellow/50">
+                              <h4 className="font-medium text-emerald">{project.name}</h4>
+                              <p className="text-sm text-gray-700 mt-1 mb-3">{project.description}</p>
+                              <Link
+                                href={project.githubLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center text-sm text-emerald hover:underline"
+                              >
+                                <Github className="h-4 w-4 mr-1" />
+                                View on GitHub
+                              </Link>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
 
-              <CardFooter className="flex justify-between p-4 bg-pastel-green/30 border-t border-emerald/30">
-                <Badge className="bg-pastel-green text-emerald hover:bg-emerald hover:text-white">
-                  {tech.projects.length} {tech.projects.length === 1 ? "Project" : "Projects"}
-                </Badge>
-                <Button asChild variant="outline" size="sm" className="border-emerald text-emerald hover-emerald">
-                  <Link href={tech.docsLink} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Official Docs
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                <CardFooter className="flex justify-between p-4 bg-pastel-green/30 border-t border-emerald/30 mt-auto">
+                  <Badge className="bg-pastel-green text-emerald hover:bg-emerald hover:text-white">
+                    {tech.projects.length} {tech.projects.length === 1 ? "Project" : "Projects"}
+                  </Badge>
+                  <Button asChild variant="outline" size="sm" className="border-emerald text-emerald hover-emerald">
+                    <Link href={tech.docsLink} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Official Docs
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
+
+      <style jsx global>{`
+        .tech-card-container {
+          display: flex;
+          flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+          .grid {
+            display: grid;
+            grid-template-rows: auto;
+            align-items: start;
+          }
+        }
+      `}</style>
     </div>
   )
 }
