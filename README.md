@@ -22,13 +22,6 @@ npx gh-pages -d out
 
 This will publish your site to GitHub Pages. Make sure your repository's GitHub Pages settings are set to use the `gh-pages` branch as the source.
 
-### 3. View Your Site
+### 3. View My Site
 
 Visit: https://y1220.github.io/
-
----
-
-**Note:**
-- The `next.config.mjs` is already set up for static export.
-- You do not need to run `next export` (Next.js 13+ handles this with `output: "export"`).
-- If you make changes, repeat the steps above to update your published site.
