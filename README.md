@@ -73,8 +73,6 @@ If you prefer a manual deployment:
 ### Viewing the Live Site
 visit: [https://y1220.github.io/](https://y1220.github.io/)
 
-Note:
-
 ## Important Configuration Notes
 
 - The `next.config.mjs` includes:
