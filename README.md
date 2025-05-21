@@ -71,10 +71,9 @@ If you prefer a manual deployment:
    - Ensure source is set to `gh-pages` branch and root (/) folder
 
 ### Viewing the Live Site
+visit: [https://y1220.github.io/](https://y1220.github.io/)
 
-After deployment, visit: [https://y1220.github.io/](https://y1220.github.io/)
-
-Note: It may take a few minutes for changes to appear after deployment.
+Note:
 
 ## Important Configuration Notes
 
