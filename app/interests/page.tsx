@@ -1,14 +1,11 @@
 "use client"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Activity, Code, ExternalLink, Gamepad, Headphones, ImageIcon, Laptop, Palette, Map, Github, Baby } from "lucide-react"
+import { Activity, Blocks, Code, ExternalLink, Gamepad, Headphones, Laptop, Palette, Map, Github, Baby, Waypoints, HeartHandshake } from "lucide-react"
 import Link from "next/link"
 
-// Sample interests data
+// Interest categories, shown as tabs
 const interestCategories = [
   {
     id: "tech",
@@ -18,17 +15,17 @@ const interestCategories = [
       {
         title: "Requirement Analysis & System Design",
         description: "Passionate about uncovering user needs, navigating design constraints, and refining solutions through collaborative analysis and iterative thinking.",
-        icon: <Code className="h-10 w-10 text-emerald" />,
+        icon: <Waypoints className="h-5 w-5 text-moss" />,
       },
       {
         title: "Web Development",
         description: "Committed to building interactive web applications with modern frameworks while continuously exploring new techniques to enhance user experience.",
-        icon: <Code className="h-10 w-10 text-emerald" />,
+        icon: <Code className="h-5 w-5 text-moss" />,
       },
       {
         title: "API Integration & Web Solution Expansion",
         description: "Driven by curiosity to explore and integrate third-party APIs, staying updated on emerging technologies to expand and improve web solutions.",
-        icon: <Code className="h-10 w-10 text-emerald" />,
+        icon: <Blocks className="h-5 w-5 text-moss" />,
       },
     ],
   },
@@ -40,17 +37,17 @@ const interestCategories = [
       {
         title: "Travel to new countries I've never been",
         description: "Dreaming of visiting new countries, immersing myself in diverse cultures, and experiencing the beauty of different landscapes.",
-        icon: <Map className="h-10 w-10 text-emerald" />,
+        icon: <Map className="h-5 w-5 text-moss" />,
       },
       {
         title: "Learn Emotional analysis",
         description: "Eager to delve into the world of emotional analysis, enhancing my understanding of human emotions and their impact on behavior.",
-        icon: <Code className="h-10 w-10 text-emerald" />,
+        icon: <HeartHandshake className="h-5 w-5 text-moss" />,
       },
       {
         title: "Make a Children's focus app",
         description: "Wishing to develop an app that helps children relax and focus, enhancing their productivity and well-being.",
-        icon: <Baby className="h-10 w-10 text-emerald" />,
+        icon: <Baby className="h-5 w-5 text-moss" />,
       },
     ],
   },
@@ -62,17 +59,17 @@ const interestCategories = [
       {
         title: "Running",
         description: "I'm a beginner runner, currently training daily with the aim of completing a marathon and exploring trail running.",
-        icon: <Activity className="h-10 w-10 text-emerald" />,
+        icon: <Activity className="h-5 w-5 text-moss" />,
       },
       {
         title: "Traveling",
         description: "I love exploring new cultures and cuisines, and I enjoy hiking in nature.",
-        icon: <Map className="h-10 w-10 text-emerald" />,
+        icon: <Map className="h-5 w-5 text-moss" />,
       },
       {
         title: "Music",
         description: "In my free time, I enjoy playing acoustic guitar as a creative and relaxing outlet.",
-        icon: <Headphones className="h-10 w-10 text-emerald" />,
+        icon: <Headphones className="h-5 w-5 text-moss" />,
       },
     ],
   },
@@ -107,7 +104,7 @@ const techStack = [
   },
   {
     name: "Google Agent Developer Kit",
-    description: "Used the it to facilitate secure authentication and cloud connectivity within agent-driven application environments.",
+    description: "Used to facilitate secure authentication and cloud connectivity within agent-driven application environments.",
     logo: "/google-adk.png?height=80&width=80",
     docsLink: "https://google.github.io/adk-docs/",
     projects: [
@@ -201,140 +198,123 @@ const techStack = [
 ]
 export default function InterestsPage() {
   return (
-    <div className="container py-12 md:py-20">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-emerald">My Interests🦄✨</h1>
-        <p className="max-w-[700px] text-gray-700 md:text-xl/relaxed">
-          Discover what keeps me curious, creative, and inspired beyond my professional work.
+    <div className="container py-16 md:py-24">
+      <header className="max-w-[54ch]">
+        <p className="eyebrow">Away from the ticket queue</p>
+        <h1 className="mt-4 font-display text-4xl font-extrabold tracking-[-0.03em] text-ink sm:text-5xl">
+          Interests
+        </h1>
+        <p className="mt-5 text-lg leading-relaxed text-ink-soft">
+          What I am curious about, what I am chasing next, and what I do when the laptop is shut.
         </p>
-      </div>
+      </header>
 
-      <div className="relative">
-        <div className="absolute inset-0 bg-pastel-green rounded-xl -z-10 transform translate-x-4 translate-y-4"></div>
-        <div className="bg-pastel-yellow rounded-xl p-6 md:p-8 border border-emerald">
-          <Tabs defaultValue="tech" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-8">
-              {interestCategories.map((category) => (
-                <TabsTrigger
-                  key={category.id}
-                  value={category.id}
-                  className="data-[state=active]:bg-emerald data-[state=active]:text-white"
-                >
-                  <div className="flex items-center gap-2">
-                    {category.icon}
-                    <span>{category.label}</span>
+      <Tabs defaultValue="tech" className="mt-14 w-full">
+        <TabsList className="h-auto w-full justify-start gap-1 rounded-full border border-ink/10 bg-surface p-1.5 sm:w-auto sm:inline-flex">
+          {interestCategories.map((category) => (
+            <TabsTrigger
+              key={category.id}
+              value={category.id}
+              className="flex-1 gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-ink-soft transition-colors data-[state=active]:bg-moss data-[state=active]:text-paper data-[state=active]:shadow-none sm:flex-none"
+            >
+              {category.icon}
+              <span>{category.label}</span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {interestCategories.map((category) => (
+          <TabsContent key={category.id} value={category.id} className="mt-10">
+            <div className="stagger grid gap-6 md:grid-cols-3">
+              {category.interests.map((interest) => (
+                <article key={interest.title} className="paper-card p-7">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sage/70">
+                    {interest.icon}
                   </div>
-                </TabsTrigger>
+                  <h2 className="mt-5 font-display text-lg font-semibold leading-snug text-ink">
+                    {interest.title}
+                  </h2>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+                    {interest.description}
+                  </p>
+                </article>
               ))}
-            </TabsList>
-
-            {interestCategories.map((category) => (
-              <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {category.interests.map((interest, index) => (
-                    <Card key={index} className="border-emerald/30 hover:shadow-md transition-all">
-                      <CardHeader className="pb-2">
-                        <div className="flex items-center gap-3">
-                          {interest.icon}
-                          <CardTitle className="text-xl text-emerald">{interest.title}</CardTitle>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <CardDescription className="text-gray-700">{interest.description}</CardDescription>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
-        </div>
-      </div>
-
-      <div className="mt-20">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
-          <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl text-emerald">
-            APIs & Frameworks I've Explored
-          </h2>
-          <p className="max-w-[700px] text-gray-700">
-            A showcase of technologies and tools I've utilized in my projects.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {techStack.map((tech, index) => (
-            <div key={index} className="tech-card-container">
-              <Card className="border-emerald/30 overflow-hidden h-full flex flex-col">
-                <div className="flex items-center gap-4 p-6 bg-pastel-yellow">
-                  <div className="relative w-16 h-16 flex-shrink-0">
-                    <Image src={tech.logo || "/placeholder.svg"} alt={tech.name} fill className="object-contain" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-emerald">{tech.name}</CardTitle>
-                    <CardDescription className="text-gray-700 mt-1">{tech.description}</CardDescription>
-                  </div>
-                </div>
-
-                <div className="flex-grow">
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value={`tech-${index}`} className="border-t border-emerald/30">
-                      <AccordionTrigger className="px-6 py-3 text-emerald hover:text-emerald/80">
-                        Related Projects
-                      </AccordionTrigger>
-                      <AccordionContent className="px-6 pb-4">
-                        <div className="space-y-4">
-                          {tech.projects.map((project, idx) => (
-                            <div key={idx} className="border border-emerald/20 rounded-md p-4 bg-pastel-yellow/50">
-                              <h4 className="font-medium text-emerald">{project.name}</h4>
-                              <p className="text-sm text-gray-700 mt-1 mb-3">{project.description}</p>
-                              <Link
-                                href={project.githubLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-sm text-emerald hover:underline"
-                              >
-                                <Github className="h-4 w-4 mr-1" />
-                                View on GitHub
-                              </Link>
-                            </div>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
-
-                <CardFooter className="flex justify-between p-4 bg-pastel-green/30 border-t border-emerald/30 mt-auto">
-                  <Badge className="bg-pastel-green text-emerald hover:bg-emerald hover:text-white">
-                    {tech.projects.length} {tech.projects.length === 1 ? "Project" : "Projects"}
-                  </Badge>
-                  <Button asChild variant="outline" size="sm" className="border-emerald text-emerald hover-emerald">
-                    <Link href={tech.docsLink} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Official Docs
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
             </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+
+      <section className="mt-24">
+        <div className="rule-label">
+          <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+            Tools I&apos;ve reached for
+          </h2>
+        </div>
+        <p className="mt-4 max-w-[58ch] text-ink-soft">
+          Each one is here because a project needed it. Open a card to see where it ended up.
+        </p>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {techStack.map((tech) => (
+            <article key={tech.name} className="paper-card flex flex-col p-7">
+              <div className="flex items-start gap-5">
+                <div className="relative h-12 w-12 flex-shrink-0">
+                  <Image
+                    src={tech.logo || "/placeholder.svg"}
+                    alt=""
+                    fill
+                    sizes="48px"
+                    className="object-contain"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-display text-xl font-semibold text-ink">{tech.name}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{tech.description}</p>
+                </div>
+              </div>
+
+              <Accordion type="single" collapsible className="mt-6 border-t border-ink/10">
+                <AccordionItem value={tech.name} className="border-0">
+                  <AccordionTrigger className="py-4 font-mono text-xs uppercase tracking-[0.16em] text-ink-soft hover:text-moss-deep hover:no-underline">
+                    {tech.projects.length} {tech.projects.length === 1 ? "project" : "projects"}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-2">
+                    <ul className="space-y-4">
+                      {tech.projects.map((project) => (
+                        <li key={project.name} className="border-l-2 border-citron pl-4">
+                          <h4 className="font-display font-semibold text-ink">{project.name}</h4>
+                          <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+                            {project.description}
+                          </p>
+                          <Link
+                            href={project.githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-ink underline-offset-4 transition-colors hover:text-moss-deep hover:underline"
+                          >
+                            <Github className="h-3.5 w-3.5" />
+                            View on GitHub
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <Link
+                href={tech.docsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center gap-2 border-t border-ink/10 pt-4 text-sm font-medium text-ink underline-offset-4 transition-colors hover:text-moss-deep hover:underline"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Official docs
+              </Link>
+            </article>
           ))}
         </div>
-      </div>
-
-      <style jsx global>{`
-        .tech-card-container {
-          display: flex;
-          flex-direction: column;
-        }
-
-        @media (min-width: 768px) {
-          .grid {
-            display: grid;
-            grid-template-rows: auto;
-            align-items: start;
-          }
-        }
-      `}</style>
+      </section>
     </div>
   )
 }

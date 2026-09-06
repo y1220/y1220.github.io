@@ -1,112 +1,131 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Award, Calendar, MapPin, Users, ExternalLink } from "lucide-react"
+import { Award, Calendar, MapPin, Users, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
-// Sample hackathon data
+// Ordered most recent first — the sequence is the point of this page
 const hackathons = [
   {
     id: 1,
     name: "Siemens Energy Hackathon",
     date: "May 2025",
-    location: "Barcelona, SPAIN",
-    image: "/rack_attack.jpeg?height=300&width=600",
-    description: "Won third place with a data center configuration app for infrastructure planning and optimization.",
+    location: "Barcelona, Spain",
+    image: "/rack_attack.jpeg",
     projectName: "Rack Attack",
     projectDescription:
       "Developed a designer tool for made to order data centers that enables clients to explore and configure equipment and services such as cooling, power, networking, and cybersecurity based on specific operational and performance needs.",
     teamSize: 4,
     achievement: "3rd Place",
-    technologies: ["MongoDB", "FastAPI", "Tailwind CSS#"],
+    technologies: ["MongoDB", "FastAPI", "Tailwind CSS"],
     projectUrl: "https://github.com/hiatus770/hackupc2025",
   },
   {
     id: 2,
     name: "Braynr Education Hackathon",
     date: "May 2025",
-    location: "Milan, ITALY",
-    image: "/braynr.png?height=300&width=600",
-    description: "Explored integration of a learning progress and vocabulary support tool into the existing Braynr app, tailored for university engineering students.",
+    location: "Milan, Italy",
+    image: "/braynr.png",
     projectName: "Edu-25",
     projectDescription:
       "A prototype that estimates time required for each study topic and visualizes learning progress as a graph. Includes a 'Lens Mode' PDF reader that highlights and defines vocabulary based on the user's individual knowledge base.",
     teamSize: 4,
-    technologies: [ "Google Adk", "MongoDB", "Next.js"],
+    technologies: ["Google ADK", "MongoDB", "Next.js"],
     projectUrl: "https://github.com/Infinity-GDG-AI-Hack-Team/Edu-25",
   },
 ]
 
 export default function HackathonsPage() {
   return (
-    <div className="container py-12 md:py-20">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-emerald">
-          Hackathon Experiences
+    <div className="container py-16 md:py-24">
+      <header className="max-w-[54ch]">
+        <p className="eyebrow">48 hours at a time</p>
+        <h1 className="mt-4 font-display text-4xl font-extrabold tracking-[-0.03em] text-ink sm:text-5xl">
+          Hackathons
         </h1>
-        <p className="max-w-[700px] text-gray-700 md:text-xl/relaxed">
-          A showcase of my hackathon journey highlighting the projects we've built, innovative ideas explored, and awards earned along the way.
+        <p className="mt-5 text-lg leading-relaxed text-ink-soft">
+          Small teams, a hard deadline, and a problem nobody on the team has solved before. Here is what
+          we shipped and what it took.
         </p>
-      </div>
+      </header>
 
-      <div className="space-y-12">
+      {/* Timeline: a marked rail on the left, entries in reverse chronological order */}
+      <ol className="mt-16 space-y-14 md:border-l md:border-ink/15 md:pl-12">
         {hackathons.map((hackathon) => (
-          <Card key={hackathon.id} className="overflow-hidden border-emerald/30">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="relative h-64 md:h-full">
-                <Image src={hackathon.image || "/placeholder.svg"} alt={hackathon.name} fill className="object-cover" />
-                {hackathon.achievement && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-emerald text-white px-3 py-1 text-sm flex items-center gap-1">
-                      <Award className="h-4 w-4" />
+          <li key={hackathon.id} className="relative">
+            <span
+              className="absolute -left-[3.35rem] top-2 hidden h-3 w-3 rounded-full border-2 border-paper bg-moss md:block"
+              aria-hidden="true"
+            />
+
+            <article className="paper-card overflow-hidden">
+              <div className="grid md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                <div className="relative aspect-[4/3] w-full bg-sage md:aspect-auto md:min-h-[320px]">
+                  <Image
+                    src={hackathon.image || "/placeholder.svg"}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    className="object-cover"
+                  />
+                  {hackathon.achievement && (
+                    <p className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-citron px-3.5 py-1.5 font-mono text-xs font-medium text-ink shadow-lift">
+                      <Award className="h-3.5 w-3.5" />
                       {hackathon.achievement}
-                    </Badge>
-                  </div>
-                )}
-              </div>
-              <div className="p-6">
-                <CardHeader className="p-0 pb-4">
-                  <CardTitle className="text-2xl text-emerald">{hackathon.name}</CardTitle>
-                  <CardDescription className="text-lg">{hackathon.projectName}</CardDescription>
-                </CardHeader>
-                <CardContent className="p-0 space-y-4">
-                  <div className="flex flex-wrap gap-4 text-sm text-gray-700">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4 text-emerald" />
-                      {hackathon.date}
+                    </p>
+                  )}
+                </div>
+
+                <div className="p-7 md:p-9">
+                  <p className="eyebrow">{hackathon.name}</p>
+                  <h2 className="mt-2.5 font-display text-3xl font-semibold text-ink">
+                    {hackathon.projectName}
+                  </h2>
+
+                  <dl className="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-ink-soft">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 text-moss" aria-hidden="true" />
+                      <dt className="sr-only">Date</dt>
+                      <dd>{hackathon.date}</dd>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4 text-emerald" />
-                      {hackathon.location}
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="h-3.5 w-3.5 text-moss" aria-hidden="true" />
+                      <dt className="sr-only">Location</dt>
+                      <dd>{hackathon.location}</dd>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Users className="h-4 w-4 text-emerald" />
-                      Team of {hackathon.teamSize}
+                    <div className="flex items-center gap-1.5">
+                      <Users className="h-3.5 w-3.5 text-moss" aria-hidden="true" />
+                      <dt className="sr-only">Team size</dt>
+                      <dd>Team of {hackathon.teamSize}</dd>
                     </div>
-                  </div>
-                  <p>{hackathon.projectDescription}</p>
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  </dl>
+
+                  <p className="mt-5 leading-relaxed text-ink-soft">{hackathon.projectDescription}</p>
+
+                  <ul className="mt-6 flex flex-wrap gap-2">
                     {hackathon.technologies.map((tech) => (
-                      <Badge key={tech} className="bg-pastel-green text-emerald hover:bg-emerald hover:text-white">
+                      <li
+                        key={tech}
+                        className="rounded-full bg-sage/70 px-3 py-1 font-mono text-[0.7rem] text-moss-deep"
+                      >
                         {tech}
-                      </Badge>
+                      </li>
                     ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-0 pt-4">
-                  <Button asChild className="bg-emerald hover:bg-emerald/90">
-                    <Link href={hackathon.projectUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      View Project
-                    </Link>
-                  </Button>
-                </CardFooter>
+                  </ul>
+
+                  <Link
+                    href={hackathon.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink underline-offset-4 transition-colors hover:text-moss-deep hover:underline"
+                  >
+                    View {hackathon.projectName} on GitHub
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
-          </Card>
+            </article>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   )
 }

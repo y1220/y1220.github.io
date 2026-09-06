@@ -1,103 +1,156 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Code, Award, Heart } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
+
+const sections = [
+  {
+    href: "/projects",
+    label: "Projects",
+    count: "5 builds",
+    description:
+      "A study app for the driving licence theory exam, sentiment tooling for developer teams, a Unity game for mental health, an AI group-therapy moderator, and a Spring Boot API.",
+  },
+  {
+    href: "/hackathons",
+    label: "Hackathons",
+    count: "2 events, 1 podium",
+    description:
+      "Two days, four people, one prototype. Data-centre configuration in Barcelona and a study-progress tool in Milan.",
+  },
+  {
+    href: "/interests",
+    label: "Interests",
+    count: "8 tools explored",
+    description:
+      "The APIs I keep coming back to, plus what happens away from the keyboard — running, travelling, acoustic guitar.",
+  },
+]
+
+const stack = [
+  "Ruby on Rails",
+  "Next.js",
+  "FastAPI",
+  "MongoDB",
+  "Neo4j",
+  "Unity",
+  "Docker",
+  "Gemini API",
+]
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="py-12 md:py-20 bg-pastel-yellow">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-emerald">
-                  Hello, I'm <span className="text-black">Yui</span>
-                </h1>
-                <p className="max-w-[600px] text-gray-700 md:text-xl">
-                  Hi there, thanks for visiting my page👋
-                </p>
-                <p className="max-w-[600px] text-gray-700 md:text-xl">
-                  I'm a passionate backend developer for web development and creative problem-solving.
-                  While I'm happily working on my current projects, I'm also super excited about connecting with people who share similar passions for meaningful, long-term collaborations.
-                </p>
-                <p className="max-w-[600px] text-gray-700 md:text-xl">
-                  Feel free to reach me out!
-                </p>
-              </div>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Link href="/projects">
-                  <Button className="bg-emerald hover:bg-emerald/90">
-                    View My Work
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+    <>
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-ink/10">
+        <div className="ruled-field pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-sage/60 blur-3xl"
+          aria-hidden="true"
+        />
+
+        <div className="container relative py-20 md:py-28">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="stagger">
+              <p className="eyebrow flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-moss" aria-hidden="true" />
+                Backend developer · open to collaborations
+              </p>
+
+              {/* Line breaks are authored for sm and up; below that the
+                  headline wraps on its own so it never overflows the viewport. */}
+              <h1 className="mt-6 font-display text-[2rem] font-extrabold leading-[1.06] tracking-[-0.03em] text-ink min-[420px]:text-[2.4rem] sm:text-[3.4rem] sm:leading-[1.03] sm:tracking-[-0.035em] xl:text-[4.25rem]">
+                I build the parts
+                <br className="hidden sm:block" />{" "}
+                nobody sees, for
+                <br className="hidden sm:block" />{" "}
+                <span className="marker marker--tall">software you feel</span>
+              </h1>
+
+              <p className="mt-8 max-w-[46ch] text-lg leading-relaxed text-ink-soft">
+                I&apos;m Yui. Most of my work sits behind the interface — APIs, data models, integrations —
+                and most of it points at mental health: tools that help people notice how they are doing
+                and ask for help sooner.
+              </p>
+
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/projects"
+                  className="group inline-flex items-center gap-2 rounded-full bg-moss px-7 py-3.5 text-sm font-medium text-paper transition-colors hover:bg-moss-deep"
+                >
+                  See what I&apos;ve built
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="mailto:ga.2.y1220@gmail.com"
+                  className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-7 py-3.5 text-sm font-medium text-ink transition-colors hover:border-moss hover:text-moss-deep"
+                >
+                  Start a conversation
                 </Link>
               </div>
             </div>
-            <div className="flex items-center justify-center">
-              <div className="relative h-[300px] w-[300px] md:h-[400px] md:w-[400px] rounded-full bg-pastel-green overflow-hidden border-4 border-emerald">
+
+            <div className="relative mx-auto w-full max-w-[380px] lg:mx-0 lg:ml-auto">
+              {/* Offset moss rule behind the portrait, echoing the notebook margin */}
+              <div
+                className="absolute -bottom-4 -left-4 h-full w-full rounded-[1.75rem] border border-moss/45"
+                aria-hidden="true"
+              />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-sage">
                 <Image
                   src="/Futa.jpeg"
-                  alt="Profile"
+                  alt="Futa, a black and white cat, looking straight at the camera"
                   fill
+                  sizes="(max-width: 1024px) 380px, 420px"
                   className="object-cover"
                   priority
                 />
               </div>
+              <p className="eyebrow mt-4 text-right">Futa — supervising</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Sections */}
-      <section className="py-12 md:py-20 bg-pastel-green">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-emerald">What I Do</h2>
-              <p className="max-w-[900px] text-gray-700 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Explore the projects and topics I’m most passionate about and where I’ve built my skills.
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <Link href="/projects" className="group">
-              <div className="flex flex-col items-center space-y-4 rounded-lg border border-emerald p-6 bg-pastel-yellow transition-all hover:shadow-lg">
-                <div className="rounded-full bg-emerald p-3">
-                  <Code className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-emerald group-hover:underline">Projects</h3>
-                <p className="text-center text-gray-700">
-                  Discover my portfolio of web applications, software solutions, and creative coding projects.
-                </p>
-              </div>
-            </Link>
-            <Link href="/hackathons" className="group">
-              <div className="flex flex-col items-center space-y-4 rounded-lg border border-emerald p-6 bg-pastel-yellow transition-all hover:shadow-lg">
-                <div className="rounded-full bg-emerald p-3">
-                  <Award className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-emerald group-hover:underline">Hackathons</h3>
-                <p className="text-center text-gray-700">
-                  Explore my hackathon experiences, winning projects, and collaborative innovations.
-                </p>
-              </div>
-            </Link>
-            <Link href="/interests" className="group">
-              <div className="flex flex-col items-center space-y-4 rounded-lg border border-emerald p-6 bg-pastel-yellow transition-all hover:shadow-lg">
-                <div className="rounded-full bg-emerald p-3">
-                  <Heart className="h-6 w-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-emerald group-hover:underline">Interests</h3>
-                <p className="text-center text-gray-700">
-                  Learn about my hobbies, research interests, and what keeps me inspired outside of work.
-                </p>
-              </div>
-            </Link>
-          </div>
+      {/* ── Stack strip ──────────────────────────────────────────────── */}
+      <section className="border-b border-ink/10 bg-surface">
+        <div className="container flex flex-wrap items-center gap-x-8 gap-y-3 py-6">
+          <p className="eyebrow">Working with</p>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {stack.map((item) => (
+              <li key={item} className="font-mono text-sm text-ink-soft">
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
-    </div>
+
+      {/* ── Index ────────────────────────────────────────────────────── */}
+      <section className="container py-20 md:py-28">
+        <div className="rule-label">
+          <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">Where to look</h2>
+        </div>
+
+        <ul className="mt-12 border-t border-ink/10">
+          {sections.map((section) => (
+            <li key={section.href}>
+              <Link
+                href={section.href}
+                className="group grid items-baseline gap-x-8 gap-y-3 border-b border-ink/10 py-8 transition-colors hover:bg-surface/70 md:grid-cols-[minmax(0,14rem)_1fr_auto] md:px-4"
+              >
+                <div>
+                  <h3 className="font-display text-2xl font-semibold text-ink transition-colors group-hover:text-moss-deep">
+                    {section.label}
+                  </h3>
+                  <p className="eyebrow mt-1.5">{section.count}</p>
+                </div>
+                <p className="max-w-[60ch] text-ink-soft">{section.description}</p>
+                <ArrowUpRight className="hidden h-6 w-6 text-ink-soft transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-moss md:block" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   )
 }

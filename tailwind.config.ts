@@ -13,12 +13,17 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: { DEFAULT: "1.5rem", lg: "2.5rem" },
       screens: {
-        "2xl": "1400px",
+        "2xl": "1240px",
       },
     },
     extend: {
+      fontFamily: {
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,14 +58,34 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "pastel-yellow": "#FFF9C4",
-        "pastel-green": "#C8E6C9",
-        emerald: "#2E7D32",
+
+        /* Design system: sun-bleached paper, moss ink, citron marker */
+        paper: "#FAF7EE",
+        surface: "#F3EEE0",
+        sage: "#DCE5D3",
+        moss: {
+          DEFAULT: "#2E6B43",
+          deep: "#1F4A2F",
+        },
+        ink: {
+          DEFAULT: "#1B2620",
+          soft: "#55625A",
+        },
+        citron: "#EFE04A",
+
+        /* Legacy aliases kept so any untouched markup still resolves */
+        "pastel-yellow": "#FAF7EE",
+        "pastel-green": "#DCE5D3",
+        emerald: "#2E6B43",
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 3px)",
+        sm: "calc(var(--radius) - 6px)",
+      },
+      boxShadow: {
+        lift: "0 1px 0 0 rgba(27,38,32,0.06), 0 12px 28px -18px rgba(27,38,32,0.45)",
+        "lift-lg": "0 1px 0 0 rgba(27,38,32,0.08), 0 26px 50px -24px rgba(27,38,32,0.5)",
       },
       keyframes: {
         "accordion-down": {
@@ -71,10 +96,20 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "rise-in": {
+          from: { opacity: "0", transform: "translateY(14px)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        "sweep-in": {
+          from: { transform: "scaleX(0)" },
+          to: { transform: "scaleX(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "rise-in": "rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "sweep-in": "sweep-in 0.55s cubic-bezier(0.65, 0, 0.35, 1) both",
       },
     },
   },

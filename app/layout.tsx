@@ -1,53 +1,51 @@
 import type React from "react"
-import { Inter } from "next/font/google"
+import type { Metadata } from "next"
+import { Bricolage_Grotesque, Karla, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 
-const inter = Inter({ subsets: ["latin"] })
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+})
 
-export const metadata = {
-  title: "Welcome to My Portfolio",
+const body = Karla({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+})
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
+})
+
+export const metadata: Metadata = {
+  title: "Y1220 — Backend developer",
+  description:
+    "Backend developer building tools around mental health, hackathon projects and web platforms. Open to long-term collaborations.",
   icons: {
     icon: "/favicon_cat.ico",
     shortcut: "/favicon_cat.ico",
     apple: "/favicon_cat.ico",
   },
   keywords: [
+    "Y1220",
     "portfolio",
-    "developer",
-    "projects",
+    "backend developer",
     "web development",
-    "programming",
-    "software engineering",
-    "technology",
+    "mental health technology",
     "hackathons",
-    "open source",
-    "collaboration",
-    "innovation",
-    "problem solving",
-    "creativity",
-    "teamwork",
-    "backend development",
-    "frontend development",
-    "full stack development",
-    "cloud computing",
-    "artificial intelligence",
-    "machine learning",
-    "data science",
-    "user experience",
-    "user interface",
-    "design",
-    "agile",
-    "scrum",
-    "devops",
-    "continuous integration",
-    "continuous deployment",
-    "version control",
-    "git",
-    "github"
-  ]
+    "Ruby on Rails",
+    "Next.js",
+    "MongoDB",
+    "API integration",
+  ],
 }
 
 export default function RootLayout({
@@ -56,13 +54,25 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-pastel-yellow min-h-screen flex flex-col`}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <Navbar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </ThemeProvider>
+    // suppressHydrationWarning covers attributes injected into <html> before
+    // React hydrates — most commonly by browser extensions.
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-screen bg-paper font-sans text-ink flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-moss focus:px-4 focus:py-2 focus:text-paper"
+        >
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main" className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   )

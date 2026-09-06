@@ -4,65 +4,36 @@
 
 @layer base {
   :root {
-    --background: 60 100% 97%;
-    --foreground: 222.2 84% 4.9%;
+    /* Paper, moss, citron — see tailwind.config.ts for the named palette */
+    --background: 45 55% 96%;
+    --foreground: 147 17% 13%;
 
-    --card: 60 100% 97%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 147 17% 13%;
 
-    --popover: 60 100% 97%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 45 55% 96%;
+    --popover-foreground: 147 17% 13%;
 
-    --primary: 160 84% 39%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 141 40% 30%;
+    --primary-foreground: 45 55% 97%;
 
-    --secondary: 60 94% 85%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 90 26% 86%;
+    --secondary-foreground: 141 42% 21%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 44 44% 92%;
+    --muted-foreground: 143 7% 36%;
 
-    --accent: 60 94% 85%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 90 26% 86%;
+    --accent-foreground: 141 42% 21%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 45 55% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 141 14% 82%;
+    --input: 141 14% 78%;
+    --ring: 141 40% 30%;
 
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 160 84% 39%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --radius: 0.75rem;
   }
 }
 
@@ -70,30 +41,132 @@
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    font-variation-settings: "wdth" 100;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* One visible, consistent focus ring across every interactive element */
+  :where(a, button, [role="tab"], summary, input, textarea, select):focus-visible {
+    outline: 2px solid theme("colors.moss.DEFAULT");
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* ── Signature: the marker swipe ────────────────────────────────────────
+     The old pastel yellow, promoted from a background wash to a highlighter.
+     Slightly skewed with a ragged left edge so it reads as hand-drawn.      */
+  .marker {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+  }
+
+  .marker::before {
+    content: "";
+    position: absolute;
+    left: -0.18em;
+    right: -0.22em;
+    bottom: 0.02em;
+    height: 0.52em;
+    z-index: -1;
+    background: theme("colors.citron");
+    opacity: 0.85;
+    transform: rotate(-0.8deg);
+    transform-origin: left center;
+    clip-path: polygon(0.6% 8%, 100% 0%, 99.4% 88%, 0% 100%);
+  }
+
+  .marker--tall::before {
+    height: 0.72em;
+    bottom: -0.04em;
+  }
+
+  /* Eyebrow / metadata label — the utility voice of the page */
+  .eyebrow {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft;
+  }
+
+  /* Card surface used across projects, hackathons and interests */
+  .paper-card {
+    @apply relative rounded-lg border border-ink/10 bg-white shadow-lift transition-[transform,box-shadow,border-color] duration-300;
+  }
+
+  .paper-card:hover {
+    @apply -translate-y-1 border-moss/35 shadow-lift-lg;
+  }
+
+  /* Ruled notebook field, used once in the hero */
+  .ruled-field {
+    background-image: radial-gradient(theme("colors.ink.DEFAULT") 0.9px, transparent 0.9px);
+    background-size: 22px 22px;
+    opacity: 0.06;
+  }
+
+  .rule-label {
+    @apply flex items-center gap-4;
+  }
+
+  .rule-label::after {
+    content: "";
+    @apply h-px flex-1 bg-ink/15;
   }
 }
 
 @layer utilities {
-  .bg-pastel-yellow {
-    @apply bg-[#FFF9C4];
+  .stagger > * {
+    animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .bg-pastel-green {
-    @apply bg-[#C8E6C9];
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.13s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.21s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.29s; }
+
+  /* Legacy aliases from the previous palette, remapped to the new system */
+  .bg-pastel-yellow { @apply bg-paper; }
+  .bg-pastel-green { @apply bg-sage; }
+  .text-emerald { @apply text-moss; }
+  .border-emerald { @apply border-moss; }
+  .hover-emerald:hover { @apply bg-moss text-paper; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  .text-emerald {
-    @apply text-[#2E7D32];
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .border-emerald {
-    @apply border-[#2E7D32];
-  }
-
-  .hover-emerald:hover {
-    @apply bg-[#2E7D32];
-    @apply text-white;
+  .paper-card:hover {
+    transform: none;
   }
 }
