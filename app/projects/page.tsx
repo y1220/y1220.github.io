@@ -5,6 +5,18 @@ import ProjectGallery from "@/components/project-gallery"
 
 const projects = [
   {
+    id: 6,
+    title: "Mentor Dashboard",
+    focus: "Tutoring",
+    description:
+      "A tracker for one-to-one tutoring. Each mentoring session is logged against a student, so the running picture of how that student is doing stays current, and the work coming out of a session becomes a to-do item with its own status and progress. The dashboard summarises session frequency, active students, and the tasks still needing attention. The interface runs in both English and Japanese.",
+    images: ["/mentor-dashboard.jpeg", "/mentor-session.jpeg"],
+    tags: [],
+    demoUrl: null,
+    githubUrl: null,
+    link: null,
+  },
+  {
     id: 5,
     title: "DriveReady",
     focus: "Exam preparation",
@@ -105,7 +117,7 @@ export default function ProjectsPage() {
               </h2>
               <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">{project.description}</p>
 
-              <ul className="mt-6 flex flex-wrap gap-2">
+              <ul className="mt-6 flex flex-wrap gap-2 empty:mt-0">
                 {project.tags.map((tag) => (
                   <li
                     key={tag}
@@ -116,7 +128,7 @@ export default function ProjectsPage() {
                 ))}
               </ul>
 
-              <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-7">
+              <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 pt-7 empty:pt-0">
                 {project.githubUrl && (
                   <Link
                     href={project.githubUrl}
@@ -128,15 +140,17 @@ export default function ProjectsPage() {
                     Code
                   </Link>
                 )}
-                <Link
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-ink underline-offset-4 transition-colors hover:text-moss-deep hover:underline"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  {project.link}
-                </Link>
+                {project.demoUrl && (
+                  <Link
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-ink underline-offset-4 transition-colors hover:text-moss-deep hover:underline"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {project.link}
+                  </Link>
+                )}
               </div>
             </div>
           </article>

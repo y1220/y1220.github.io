@@ -6,9 +6,9 @@ const sections = [
   {
     href: "/projects",
     label: "Projects",
-    count: "5 builds",
+    count: "6 builds",
     description:
-      "A study app for the driving licence theory exam, sentiment tooling for developer teams, a Unity game for mental health, an AI group-therapy moderator, and a Spring Boot API.",
+      "A mentoring tracker, a study app for the driving licence theory exam, sentiment tooling for developer teams, a Unity game for mental health, an AI group-therapy moderator, and a Spring Boot API.",
   },
   {
     href: "/hackathons",
